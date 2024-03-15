@@ -5,6 +5,8 @@ import axios from "axios";
 import "./App.css";
 
 const App = () => {
+  const endpoint = "https://checkinn.co/api/v1/int/requests";
+
   const [options, setOptions] = useState({
     chart: {
       type: "line",
@@ -40,8 +42,8 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   const getChartData = async () => {
-    const response = await axios.get("https://checkinn.co/api/v1/int/requests");
-    const data = response.data?.requests;
+    const response = await axios.get(endpoint);
+    const data = response.data?.requests ?? [];
     const chartData = data.reduce((acc, request) => {
       const hotel = request.hotel.name;
       if (!acc[hotel]) {
